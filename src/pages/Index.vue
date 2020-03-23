@@ -1,18 +1,18 @@
 <template>
-  <q-page class="q-pa-sm fit column content-center">
-    <div class="text-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg" class="" style="width: 180px">
-
-      <h5 class="">My Todo List</h5>
+  <q-page class="q-pa-xs fit column content-center">
+    <Logos/>
+    <div class="text-center row todo-title">
+      <h5 class="col">My Todo List</h5>
     </div>
-    <TodoInput style="width: 300px" />
+    <TodoInput/>
     <TodosList :listFilter="filter" />
-    <FilterBar @click="setFilter" />
+    <FilterBar />
     <DeleteBar />
   </q-page>
 </template>
 
 <script>
+import Logos from 'components/Logos'
 import TodoInput from 'components/TodoInput'
 import TodosList from 'components/TodosList'
 import FilterBar from 'components/FilterBar'
@@ -20,16 +20,24 @@ import DeleteBar from 'components/DeleteBar'
 
 export default {
   name: 'TodosPage',
-  components: { TodoInput, TodosList, FilterBar, DeleteBar },
+  components: { Logos, TodoInput, TodosList, FilterBar, DeleteBar },
   data () {
     return {
       filter: 'SHOW_ALL'
     }
   },
   methods: {
-    setFilter (filter) {
-      this.filter = filter
+    setFilterType (filter) {
+      // this.filterType = filterType
     }
   }
 }
 </script>
+
+<style>
+.todo-title {
+    height: 90px;
+    margin-top: -40px;
+}
+
+</style>

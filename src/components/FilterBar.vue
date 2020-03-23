@@ -2,55 +2,42 @@
   <div class="q-pa-sm text-center">
     <q-btn
       color="primary"
-      :flat="!filter.active"
       v-for="(filter, index) in filters"
+      :flat="!filter.active"
       :key="index"
       @click="setFilter(filter.name)"
     >
-            {{ filter.label }}
+      {{ filter.label }}
     </q-btn>
+    <p v-if="error">There has been an error<br>{{error}}</p>
   </div>
 </template>
 
 <script>
+import { queries, mutations } from 'src/graphql/Todos'
+
 export default {
   name: 'FilterBar',
   data () {
     return {
-      filters: [
-        {
-          name: 'SHOW_ALL',
-          label: 'All',
-          active: true
-        },
-        {
-          name: 'SHOW_COMPLETED',
-          label: 'Completed',
-          active: false
-        },
-        {
-          name: 'SHOW_ACTIVE',
-          label: 'Active',
-          active: false
-        }
-      ]
+      filters: [],
+      error: ''
     }
   },
+
+  apollo: {
+    filters: queries.getFilters
+  },
+
   methods: {
-    setFilter (filter) {
-      this.setActiveFilter(filter)
-      this.$emit('click', filter)
-    },
-    activeStyle (active) {
-      return !active ? 'text-decoration: none' : 'text-decoration: underline'
-    },
-    setActiveFilter (filterName) {
-      this.filters.map(filter => {
-        if (filterName === filter.name) {
-          filter.active = true
-        } else {
-          filter.active = false
+    setFilter (filterName) {
+      this.$apollo.mutate({
+        mutation: mutations.setActiveFilter,
+        variables: {
+          name: filterName
         }
+      }).catch((error) => {
+        this.error = error
       })
     }
   }

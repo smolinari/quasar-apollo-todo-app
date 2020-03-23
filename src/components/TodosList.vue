@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style="width: 300px">
     <q-list bordered separator v-if="todos.length">
-      <q-item v-for="todo in visibleTodos(todos)" :key="todo.id">
+      <q-item v-for="todo in visibleTodos" :key="todo.id">
         <Todo :todo="todo" />
       </q-item>
     </q-list>
@@ -10,47 +10,40 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import Todo from './Todo'
+import { queries } from 'src/graphql/Todos'
+import Todo from 'components/Todo'
 
 export default {
   name: 'TodosList',
   components: { Todo },
-  props: {
-    listFilter: {
-      type: String
-    }
-  },
   data () {
     return {
-      todos: []
+      todos: [],
+      filters: [],
+      activeFilter: ''
     }
   },
+
   apollo: {
-    todos: gql`
-      {
-        todos @client {
-          id
-          todo
-          completed
-        }
-      }
-    `
+    todos: queries.getTodos,
+    filters: queries.getFilters
   },
-  methods: {
-    visibleTodos (todos) {
-      switch (this.listFilter) {
+
+  computed: {
+    visibleTodos () {
+      switch (this.activeFilter.name) {
         case 'SHOW_ALL':
-          return todos
+          return this.todos
         case 'SHOW_COMPLETED':
-          return todos.filter(t => t.completed)
+          return this.todos.filter(t => t.completed)
         case 'SHOW_ACTIVE':
-          return todos.filter(t => !t.completed)
+          return this.todos.filter(t => !t.completed)
         default:
-          throw new Error('Unknown filter: ' + this.listFilter)
+          return this.todos
       }
     }
   },
+
   watch: {
     todos: {
       handler: function () {
@@ -62,11 +55,14 @@ export default {
         }
       },
       deep: true
+    },
+
+    filters: {
+      handler: function () {
+        this.activeFilter = this.filters.find(filter => filter.active)
+      },
+      deep: true
     }
   }
 }
 </script>
-
-<style>
-
-</style>

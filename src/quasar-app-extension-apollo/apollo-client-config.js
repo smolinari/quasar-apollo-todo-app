@@ -1,7 +1,8 @@
-import { resolvers, defaults, typeDefs } from 'src/graphql/resolvers'
+import { resolvers, typeDefs } from 'src/graphql/Todos'
 
 export default function (/* { app, router, store, ssrContext, urlPath, redirect } */) {
   return {
+
     default: {
       // 'apollo-link-http' config
       // https://www.apollographql.com/docs/link/links/http/#options
@@ -21,8 +22,7 @@ export default function (/* { app, router, store, ssrContext, urlPath, redirect 
       // https://github.com/apollographql/apollo-client/blob/version-2.6/docs/source/api/apollo-client.mdx#optional-fields
       additionalConfig: {
         typeDefs,
-        resolvers,
-        defaults
+        resolvers
       }
     },
 

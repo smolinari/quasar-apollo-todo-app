@@ -1,40 +1,36 @@
 <template>
-  <ApolloMutation
-    :mutation="addTodo"
-    :variables="{
-      todo
-    }"
-    @done="cleanup"
-  >
-    <template slot-scope="{ mutate, error }">
-      <form @submit.prevent="mutate">
-        <q-input v-model="todo" outlined class="col-3" label="Add a task" autocomplete="off" />
-      </form>
-      <p v-if="error">There has been an error<br>{{error}}</p>
-    </template>
-  </ApolloMutation>
+  <div>
+    <q-form @submit.prevent="mutate">
+      <q-input v-model="todo" outlined class="col-3" label="Add a task" autocomplete="off" />
+    </q-form>
+    <p v-if="error">There has been an error<br>{{error}}</p>
+  </div>
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
-const ADD_TODO = gql`
-  mutation addTodo($todo: String!) {
-    addTodo(todo: $todo) @client
-  }
-`
+import { mutations } from 'src/graphql/Todos'
 
 export default {
   name: 'TodoInput',
   data () {
     return {
       todo: '',
-      addTodo: ADD_TODO
+      error: ''
     }
   },
+
   methods: {
-    cleanup () {
-      this.todo = ''
+    mutate () {
+      this.$apollo.mutate({
+        mutation: mutations.addTodo,
+        variables: {
+          todo: this.todo
+        }
+      }).then(() => {
+        this.todo = ''
+      }).catch((error) => {
+        this.error = error
+      })
     }
   }
 }

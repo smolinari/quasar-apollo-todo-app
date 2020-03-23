@@ -1,19 +1,16 @@
 <template>
   <q-btn
-    v-if="tasksCompleted(todos)"
+    v-if="tasksCompleted()"
     class="text-center"
     color="primary"
     outline
-    @click="deleteTodos(todos)">
+    @click="deleteTodos()">
     delete completed todos
   </q-btn>
 </template>
 
 <script>
-import gql from 'graphql-tag'
-import TodosList from './TodosList'
-
-const getTodos = TodosList.apollo.todos
+import { queries, mutations } from 'src/graphql/Todos'
 
 export default {
   name: 'DeleteBar',
@@ -23,10 +20,10 @@ export default {
     }
   },
   apollo: {
-    todos: getTodos
+    todos: queries.getTodos
   },
   methods: {
-    deleteTodos (todos) {
+    deleteTodos () {
       this.$q.dialog({
         title: 'Confirm',
         message: 'Are you certain you want to delete your completed tasks?',
@@ -41,11 +38,7 @@ export default {
         // console.log('>>>> OK')
       }).onOk(() => {
         this.$apollo.mutate({
-          mutation: gql`
-            mutation deleteTodos {
-              deleteTodos @client
-            }
-          `
+          mutation: mutations.deleteTodos
         })
       }).onCancel(() => {
         // console.log('>>>> Cancel')
@@ -53,8 +46,9 @@ export default {
         // console.log('I am triggered on both OK and Cancel')
       })
     },
-    tasksCompleted (todos) {
-      const completed = todos.filter(t => t.completed)
+
+    tasksCompleted () {
+      const completed = this.todos.filter(t => t.completed)
       return completed.length
     }
   }

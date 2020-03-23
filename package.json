@@ -14,7 +14,7 @@
   "dependencies": {
     "@quasar/extras": "^1.6.0",
     "nanoid": "^2.1.11",
-    "quasar": "^1.9.9"
+    "quasar": "^1.9.11"
   },
   "devDependencies": {
     "@m8a/quasar-app-extension-apollo": "^1.0.0-alpha.10",
