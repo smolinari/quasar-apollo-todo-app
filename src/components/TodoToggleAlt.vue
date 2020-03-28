@@ -34,7 +34,6 @@ export default {
     updateCache (store, { data: { toggleTodo } }) {
       const data = store.readQuery({ query: queries.getTodos })
       data.todos.find((todo) => {
-        console.log('id: ')
         if (todo.id === this.id) {
           todo.completed = !todo.completed
         }

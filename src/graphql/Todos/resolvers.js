@@ -28,7 +28,6 @@ export const resolvers = {
       const todo = data.todos.find((todo) => {
         if (todo.id === args.id) {
           todo.text = args.text
-          console.log('editing todo:', todo.text)
         }
         return todo.todo
       })
@@ -61,12 +60,10 @@ export const resolvers = {
 
   Query: {
     todo: (_, args, { cache }) => {
-      console.log('getting todo')
       const data = cache.readQuery({
         query: queries.getTodos
       })
       const todo = data.todos.find(todo => todo.id === args.id)
-      console.log('single todo gotten: ', todo)
       return { ...todo }
     }
   }
