@@ -1,16 +1,17 @@
 <template>
   <div class="row">
     <q-item-section avatar>
-        <TodoToggle :todo="todo"/>
+        <TodoToggle :id="todo.id" :completed="todo.completed" />
     </q-item-section>
-    <q-item-section v-if="!editTodo"
+    <q-item-section
+      v-if="!editTodo"
       @click="toggleEdit"
       class="text-body1 cursor-pointer"
       :style="checkedStyle"
     >
-      {{ todo.todo }}
+      {{ todo.text }}
     </q-item-section>
-    <TodoEdit v-else :todoId="todo.id" @input="toggleEdit"/>
+    <TodoEdit v-else :id="todo.id" :text="todo.text" @input="toggleEdit"/>
   </div>
 </template>
 <script>
@@ -25,8 +26,7 @@ export default {
   },
   data () {
     return {
-      editTodo: false,
-      todoInternal: this.todo
+      editTodo: false
     }
   },
 
@@ -39,7 +39,6 @@ export default {
 
   methods: {
     toggleEdit () {
-      this.todo = this.todoInternal
       this.editTodo = !this.editTodo
     }
   }

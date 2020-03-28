@@ -4,12 +4,13 @@ import { queries } from 'src/graphql/Todos'
 
 export const resolvers = {
   Mutation: {
-    addTodo: (_, { todo }, { cache }) => {
-      const query = queries.getTodos
-      const previous = cache.readQuery({ query })
+    addTodo: (_, { text }, { cache }) => {
+      const previous = cache.readQuery({
+        query: queries.getTodos
+      })
       const newTodo = {
         id: nanoid(10),
-        todo,
+        text,
         completed: false,
         __typename: 'TodoItem'
       }
@@ -24,20 +25,21 @@ export const resolvers = {
       const data = cache.readQuery({
         query: queries.getTodos
       })
-      const todos = data.todos
-      const todo = todos.find((todo) => {
+      const todo = data.todos.find((todo) => {
         if (todo.id === args.id) {
-          todo.todo = args.todo
+          todo.text = args.text
+          console.log('editing todo:', todo.text)
         }
         return todo.todo
       })
-      cache.writeData({ data })
-      return todo.todo
+      cache.writeData({ data: { todos: data.todos } })
+      return todo
     },
 
     deleteTodos: (_, __, { cache }) => {
-      const query = queries.getTodos
-      const allTodos = cache.readQuery({ query })
+      const allTodos = cache.readQuery({
+        query: queries.getTodos
+      })
       const data = {
         todos: allTodos.todos.filter(t => !t.completed)
       }
@@ -45,8 +47,9 @@ export const resolvers = {
     },
 
     setActiveFilter: (_, args, { cache }) => {
-      const query = queries.getFilters
-      const data = cache.readQuery({ query })
+      const data = cache.readQuery({
+        query: queries.getFilters
+      })
       data.filters.forEach(filter => {
         filter.name === args.name
           ? filter.active = true
@@ -58,9 +61,12 @@ export const resolvers = {
 
   Query: {
     todo: (_, args, { cache }) => {
-      const query = queries.getTodos
-      const data = cache.readQuery({ query })
+      console.log('getting todo')
+      const data = cache.readQuery({
+        query: queries.getTodos
+      })
       const todo = data.todos.find(todo => todo.id === args.id)
+      console.log('single todo gotten: ', todo)
       return { ...todo }
     }
   }

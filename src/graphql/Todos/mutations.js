@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 
 export const addTodo = gql`
-  mutation addTodo($todo: String!) {
-    addTodo(todo: $todo) @client
+  mutation addTodo($text: String!) {
+    addTodo(text: $text) @client
   }
 `
 export const deleteTodos = gql`
@@ -16,7 +16,13 @@ export const setActiveFilter = gql`
   }
 `
 export const editTodo = gql`
-  mutation editTodo($id: String!, $todo: String!) {
-    editTodo(id: $id, todo: $todo) @client
+  mutation editTodo($id: String!, $text: String!) {
+    editTodo(id: $id, text: $text) @client
+  }
+`
+
+export const toggleTodo = gql`
+  mutation toggleTodo($id: String!) {
+    toggleTodo(id: $id) @client
   }
 `

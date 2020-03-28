@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 export const typeDefs = gql`
   type Todo {
     id: String!
-    todo: String!
+    text: String!
     completed: Boolean!
   },
 
@@ -14,8 +14,9 @@ export const typeDefs = gql`
   },
 
   type Mutation {
-    addTodo(todo: String!): Todo
+    addTodo(text: String!): Todo
     toggleTodo(id: String!): Todo
     setActiveFilter(name: String!): Filter
+    editTodo(text: String!, id: String!): Todo
   }
 `

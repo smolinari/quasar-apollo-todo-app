@@ -4,16 +4,16 @@ export const getTodos = gql`
   query GetTodos {
     todos @client {
       id
-      todo
+      text
       completed
     }
   }
 `
 export const getTodo = gql`
   query GetTodo($id: String!) {
-    todo(id: $id) @client {
+    todos(id: $id) @client {
       id
-      todo
+      text
       completed
     }
   }
