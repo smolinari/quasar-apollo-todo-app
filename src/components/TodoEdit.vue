@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-form @submit="submit">
-      <q-input style="width: 200px" dense borderless v-model="innerText" autocomplete="off" @keyup.escape="mutate" />
+      <q-input autofocus style="width: 200px" dense borderless v-model="innerText" autocomplete="off" @keyup.escape="mutate" />
     </q-form>
   </div>
 </template>

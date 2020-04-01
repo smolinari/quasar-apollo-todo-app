@@ -1,6 +1,6 @@
 <template>
   <div style="width: 300px">
-    <q-list bordered separator v-if="todos.length">
+    <q-list v-if="todos.length" bordered separator>
       <q-item v-for="todo in visibleTodos" :key="todo.id">
         <Todo :todo="todo" />
       </q-item>
@@ -15,7 +15,9 @@ import Todo from 'components/Todo'
 
 export default {
   name: 'TodosList',
+
   components: { Todo },
+
   data () {
     return {
       todos: [],

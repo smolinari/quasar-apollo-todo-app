@@ -14,14 +14,17 @@ import { queries, mutations } from 'src/graphql/Todos'
 
 export default {
   name: 'DeleteBar',
+
   data () {
     return {
       todos: []
     }
   },
+
   apollo: {
     todos: queries.getTodos
   },
+
   methods: {
     deleteTodos () {
       this.$q.dialog({

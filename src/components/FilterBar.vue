@@ -18,6 +18,7 @@ import { queries, mutations } from 'src/graphql/Todos'
 
 export default {
   name: 'FilterBar',
+
   data () {
     return {
       filters: [],

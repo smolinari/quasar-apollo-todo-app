@@ -29,7 +29,9 @@ import Todo from 'components/Todo'
 
 export default {
   name: 'TodosList',
+
   components: { Todo },
+
   data () {
     return {
       filters: [],

@@ -1,6 +1,5 @@
-import nanoid from 'nanoid'
-
 import { queries } from 'src/graphql/Todos'
+import nanoid from 'nanoid'
 
 export const resolvers = {
   Mutation: {

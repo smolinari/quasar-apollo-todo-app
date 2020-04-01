@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "quasar-apollo-todo-app-without-vuex",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
   "productName": "Quasar App",
@@ -14,11 +14,11 @@
   "dependencies": {
     "@quasar/extras": "^1.6.0",
     "nanoid": "^2.1.11",
-    "quasar": "^1.9.11"
+    "quasar": "^1.9.12"
   },
   "devDependencies": {
-    "@m8a/quasar-app-extension-apollo": "^1.0.0-alpha.10",
     "@quasar/app": "^1.0.0",
+    "@quasar/quasar-app-extension-apollo": "^1.0.0-beta.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",

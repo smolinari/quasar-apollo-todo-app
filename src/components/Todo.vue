@@ -20,10 +20,13 @@ import TodoEdit from 'components/TodoEdit'
 
 export default {
   name: 'Todo',
+
   components: { TodoToggle, TodoEdit },
+
   props: {
     todo: {}
   },
+
   data () {
     return {
       editTodo: false

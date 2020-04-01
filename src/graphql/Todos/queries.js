@@ -28,3 +28,9 @@ export const getFilters = gql`
     }
   }
 `
+
+export const toggleTodoFragment = gql`
+  fragment toggleTodo on TodoItem {
+    completed
+  }
+`
