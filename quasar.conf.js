@@ -71,6 +71,10 @@ module.exports = function (ctx) {
             }
             return options
           })
+        chain.module.rule('gql')
+          .test(/\.(graphql|gql)$/)
+          .use('graphql-tag/loader')
+          .loader('graphql-tag/loader')
       },
       // rtl: false, // https://quasar.dev/options/rtl-support
       // showProgress: false,
