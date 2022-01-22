@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.6.0",
-    "nanoid": "^2.1.11",
+    "nanoid": "^3.1.31",
     "quasar": "^1.9.12"
   },
   "devDependencies": {
